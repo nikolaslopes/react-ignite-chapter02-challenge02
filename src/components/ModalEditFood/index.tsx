@@ -1,9 +1,9 @@
-import { Component, createRef, useRef } from 'react'
+import { useRef } from 'react'
 import { FiCheckSquare } from 'react-icons/fi'
 
 import { Form } from './styles'
 import { Modal } from '../Modal'
-import Input from '../Input'
+import { Input } from '../Input'
 import { IModalEditFood } from './types'
 import { FormHandles } from '@unform/core'
 import { IFood } from '../../pages/Dashboard/types'
@@ -22,7 +22,7 @@ export function ModalEditFood({
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
-      {/* <Form ref={formRef} onSubmit={handleSubmit} initialData={editingFood}>
+      <Form ref={formRef} onSubmit={handleSubmit} initialData={editingFood}>
         <h1>Editar Prato</h1>
         <Input name="image" placeholder="Cole o link aqui" />
 
@@ -37,7 +37,7 @@ export function ModalEditFood({
             <FiCheckSquare size={24} />
           </div>
         </button>
-      </Form> */}
+      </Form>
     </Modal>
   )
 }

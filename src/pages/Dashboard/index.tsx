@@ -11,7 +11,7 @@ import { IFood } from './types'
 export function Dashboard() {
   const [foods, setFoods] = useState<IFood[]>([])
   const [modalAddFoodOpen, setModalAddFoodOpen] = useState(false)
-  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [editModalOpen, setEditFoodModalOpen] = useState(false)
   const [editingFood, setEditingFood] = useState<IFood>({} as IFood)
 
   // const { modalOpen, editModalOpen, editingFood, foods } = this.state;
@@ -79,13 +79,13 @@ export function Dashboard() {
     setModalAddFoodOpen(!modalAddFoodOpen)
   }
 
-  function toggleEditModal() {
-    setEditModalOpen(!editModalOpen)
+  function toggleEditFoodModal() {
+    setEditFoodModalOpen(!editModalOpen)
   }
 
   function handleEditFood(food: IFood) {
     setEditingFood(food)
-    setEditModalOpen(true)
+    setEditFoodModalOpen(true)
   }
 
   return (
@@ -94,13 +94,13 @@ export function Dashboard() {
 
       <ModalAddFood
         isOpen={modalAddFoodOpen}
-        onRequestClose={toggleEditModal}
+        onRequestClose={toggleModalAddFood}
         handleAddFood={handleAddFood}
       />
 
       <ModalEditFood
         isOpen={editModalOpen}
-        onRequestClose={toggleEditModal}
+        onRequestClose={toggleEditFoodModal}
         editingFood={editingFood}
         handleUpdateFood={handleUpdateFood}
       />
