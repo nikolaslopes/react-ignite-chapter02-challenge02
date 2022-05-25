@@ -1,30 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { api } from '../../services/api'
-import Food from '../../components/Food'
+import { FoodCard } from '../../components/FoodCart'
 import { ModalAddFood } from '../../components/ModalAddFood'
 import { ModalEditFood } from '../../components/ModalEditFood'
 import { FoodsContainer } from './styles'
-
-import { IFood } from './types'
+import { IFood } from '../../types/index'
 
 export function Dashboard() {
   const [foods, setFoods] = useState<IFood[]>([])
   const [modalAddFoodOpen, setModalAddFoodOpen] = useState(false)
   const [editModalOpen, setEditFoodModalOpen] = useState(false)
   const [editingFood, setEditingFood] = useState<IFood>({} as IFood)
-
-  // const { modalOpen, editModalOpen, editingFood, foods } = this.state;
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     foods: [],
-  //     editingFood: {},
-  //     modalOpen: false,
-  //     editModalOpen: false,
-  //   }
-  // }
 
   async function fetchFoods() {
     const { data } = await api.get('/foods')
@@ -108,11 +95,11 @@ export function Dashboard() {
       <FoodsContainer data-testid="foods-list">
         {foods &&
           foods.map((food) => (
-            <Food
+            <FoodCard
               key={food.id}
               food={food}
               handleDelete={handleDeleteFood}
-              handleEditFood={handleEditFood}
+              handleEdit={handleEditFood}
             />
           ))}
       </FoodsContainer>

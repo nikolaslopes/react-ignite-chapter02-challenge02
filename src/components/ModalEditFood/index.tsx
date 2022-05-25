@@ -6,7 +6,7 @@ import { Modal } from '../Modal'
 import { Input } from '../Input'
 import { IModalEditFood } from './types'
 import { FormHandles } from '@unform/core'
-import { IFood } from '../../pages/Dashboard/types'
+import { IFood } from '../../types/index'
 
 export function ModalEditFood({
   isOpen,

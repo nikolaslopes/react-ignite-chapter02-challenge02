@@ -1,26 +1,26 @@
-import { createRef } from 'react'
+import { useRef } from 'react'
 import { FiCheckSquare } from 'react-icons/fi'
-
 import { Form } from './styles'
 import { Modal } from '../Modal'
-import Input from '../Input'
-import { useState } from 'react'
+import { Input } from '../Input'
 import { IModalAddFood } from './types'
-import { IFood } from '../../pages/Dashboard/types'
+import { IFood } from '../../types/index'
+import { FormHandles } from '@unform/core'
 
 export function ModalAddFood({
   isOpen,
   onRequestClose,
   handleAddFood,
 }: IModalAddFood) {
-  // const [isOpen, setIsOpen] = useState(false);
-  async function handleSubmit(data: IFood) {
-    handleAddFood(data)
+  const formRef = useRef<FormHandles>(null)
+
+  async function handleSubmit(food: IFood) {
+    handleAddFood(food)
   }
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
-      {/* <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <h1>Novo Prato</h1>
         <Input name="image" placeholder="Cole o link aqui" />
 
@@ -34,7 +34,7 @@ export function ModalAddFood({
             <FiCheckSquare size={24} />
           </div>
         </button>
-      </Form> */}
+      </Form>
     </Modal>
   )
 }

@@ -1,4 +1,4 @@
-import { IFood } from '../../pages/Dashboard/types'
+import { IFood } from '../../types/index'
 
 export interface IModalAddFood {
   isOpen: boolean
