@@ -1,6 +1,6 @@
 import { Switch, Route } from 'react-router-dom'
 
-import Dashboard from '../pages/Dashboard'
+import { Dashboard } '../pages/Dashboard'
 
 export function Routes() {
   return (
