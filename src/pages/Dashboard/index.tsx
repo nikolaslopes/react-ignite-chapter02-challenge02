@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
-import Header from '../../components/Header'
+import { Header } from '../../components/Header'
 import { api } from '../../services/api'
 import Food from '../../components/Food'
 import { ModalAddFood } from '../../components/ModalAddFood'
-import ModalEditFood from '../../components/ModalEditFood'
+import { ModalEditFood } from '../../components/ModalEditFood'
 import { FoodsContainer } from './styles'
 
-import { IFoods } from './types'
+import { IFood } from './types'
 
 export function Dashboard() {
-  const [foods, setFoods] = useState<IFoods[]>([])
-  const [modalOpen, setModalOpen] = useState(false)
+  const [foods, setFoods] = useState<IFood[]>([])
+  const [modalAddFoodOpen, setModalAddFoodOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
-  const [editingFood, setEditinFood] = useState([])
+  const [editingFood, setEditingFood] = useState<IFood>({} as IFood)
 
   // const { modalOpen, editModalOpen, editingFood, foods } = this.state;
 
@@ -38,73 +38,69 @@ export function Dashboard() {
     fetchFoods()
   }, [])
 
-  async function handleAddFood(food) {
-    const { foods } = this.state
-
+  async function handleAddFood(food: IFood) {
     try {
-      const response = await api.post('/foods', {
+      const response = await api.post('foods', {
         ...food,
         available: true,
       })
 
-      this.setState({ foods: [...foods, response.data] })
+      setFoods([...foods, response.data])
     } catch (err) {
       console.log(err)
     }
   }
 
-  async function handleUpdateFood(food) {
-    const { foods, editingFood } = this.state
-
+  async function handleUpdateFood(food: IFood) {
     try {
-      const foodUpdated = await api.put(`/foods/${editingFood.id}`, {
+      const foodUpdated = await api.put(`foods/${editingFood.id}`, {
         ...editingFood,
         ...food,
       })
 
-      const foodsUpdated = foods.map((f) =>
-        f.id !== foodUpdated.data.id ? f : foodUpdated.data
+      const foodsUpdated = foods.map((food) =>
+        food.id !== foodUpdated.data.id ? food : foodUpdated.data
       )
 
-      this.setState({ foods: foodsUpdated })
+      setFoods(foodsUpdated)
     } catch (err) {
       console.log(err)
     }
   }
 
-  async function handleDeleteFood(id) {
-    const { foods } = this.state
-
+  async function handleDeleteFood(id: number) {
     await api.delete(`/foods/${id}`)
 
     const foodsFiltered = foods.filter((food) => food.id !== id)
-
-    this.setState({ foods: foodsFiltered })
+    setFoods(foodsFiltered)
   }
 
-  function toggleModal() {
-    setModalOpen(!modalOpen)
+  function toggleModalAddFood() {
+    setModalAddFoodOpen(!modalAddFoodOpen)
   }
 
   function toggleEditModal() {
     setEditModalOpen(!editModalOpen)
   }
 
-  function handleEditFood(food) {
-    this.setState({ editingFood: food, editModalOpen: true })
+  function handleEditFood(food: IFood) {
+    setEditingFood(food)
+    setEditModalOpen(true)
   }
 
   return (
     <>
-      <Header openModal={toggleModal} />
+      <Header openAddFoodModal={toggleModalAddFood} />
+
       <ModalAddFood
-        isOpen={modalOpen}
-        setIsOpen={toggleModal}
+        isOpen={modalAddFoodOpen}
+        onRequestClose={toggleEditModal}
         handleAddFood={handleAddFood}
       />
+
       <ModalEditFood
         isOpen={editModalOpen}
-        setIsOpen={toggleEditModal}
+        onRequestClose={toggleEditModal}
         editingFood={editingFood}
         handleUpdateFood={handleUpdateFood}
       />

@@ -1,32 +1,11 @@
+import ReactModal from 'react-modal'
+import { IModal } from './types'
 
-import ReactModal from 'react-modal';
-import { IModal } from './types';
-
-export function Modal ({ children }: IModal ) {
-  constructor(props) {
-    super(props);
-
-    const { isOpen } = this.props;
-    this.state = {
-      modalStatus: isOpen
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    const { isOpen } = this.props;
-
-    if (prevProps.isOpen !== isOpen) {
-      console.log(this.props)
-      this.setState({ modalStatus: isOpen })
-    }
-  }
-
-    const { modalStatus } = this.state;
-
+export function Modal({ isOpen, onRequestClose, children }: IModal) {
   return (
     <ReactModal
-      isOpen={modalStatus}
-      onRequestClose={setIsOpen}
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
       ariaHideApp={false}
       style={{
         content: {
@@ -49,5 +28,5 @@ export function Modal ({ children }: IModal ) {
     >
       {children}
     </ReactModal>
-  );
-};
+  )
+}

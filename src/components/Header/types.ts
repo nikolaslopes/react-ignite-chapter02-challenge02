@@ -1,3 +1,3 @@
 export interface IHeader {
-  onOpenModal: () => void
+  openAddFoodModal: () => void
 }

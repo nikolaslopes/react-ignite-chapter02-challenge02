@@ -3,14 +3,14 @@ import { Container } from './styles'
 import Logo from '../../assets/logo.svg'
 import { IHeader } from './types'
 
-export function Header({ onOpenModal }: IHeader) {
+export function Header({ openAddFoodModal }: IHeader) {
   return (
     <Container>
       <header>
         <img src={Logo} alt="GoRestaurant" />
         <nav>
           <div>
-            <button type="button" onClick={onOpenModal}>
+            <button type="button" onClick={openAddFoodModal}>
               <div className="text">Novo Prato</div>
               <div className="icon">
                 <FiPlusSquare size={24} />
